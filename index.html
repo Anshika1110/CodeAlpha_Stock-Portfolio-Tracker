@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Portfolio Tracker</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #f9f9f9; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+        th { background-color: #eee; }
+        .message { margin: 10px 0; color: green; }
+    </style>
+</head>
+<body>
+    <h1>📈 Stock Portfolio Tracker</h1>
+    {% if message %}
+        <p class="message">{{ message }}</p>
+    {% endif %}
+    <form method="post">
+        <label>Stock Symbol:</label>
+        <input type="text" name="stock" required>
+        <label>Quantity:</label>
+        <input type="number" name="quantity" required>
+        <button type="submit">Add</button>
+    </form>
+
+    {% if portfolio %}
+        <h2>Portfolio Summary</h2>
+        <table>
+            <tr>
+                <th>Stock</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Value</th>
+            </tr>
+            {% for item in portfolio %}
+            <tr>
+                <td>{{ item.symbol }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>${{ item.price }}</td>
+                <td>${{ item.value }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <th colspan="3">Total Investment</th>
+                <th>${{ total }}</th>
+            </tr>
+        </table>
+        <br>
+        <a href="/save">💾 Save to CSV</a>
+    {% endif %}
+</body>
+</html>
